@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List</title>
+    <style>
+        #todoList {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        #tasks {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #tasks li {
+            padding: 10px;
+            background-color: #e9e9e9;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        #tasks li:hover {
+            background-color: #dcdcdc;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="todoList">
+        <input type="text" id="newTask" placeholder="New Task">
+        <button onclick="addTask()">Add</button>
+        <ul id="tasks">
+        </ul>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskValue = document.getElementById('newTask').value;
+            if (taskValue.trim() === '') return; // Don't add empty tasks
+
+            const li = document.createElement('li');
+            li.textContent = taskValue;
+
+            li.addEventListener('click', function() {
+                this.classList.toggle('completed');
+            });
+
+            document.getElementById('tasks').appendChild(li);
+            document.getElementById('newTask').value = ''; // Clear the input
+        }
+    </script>
+</body>
+</html>
