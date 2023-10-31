@@ -60,3 +60,82 @@
     </script>
 </body>
 </html>
+<!-- ... (above remains the same) ... -->
+
+<style>
+    /* ... (previous styles) ... */
+
+    #tasks li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .deleteBtn {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .notification {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+
+<!-- ... -->
+
+<div id="todoList">
+    <input type="text" id="newTask" placeholder="New Task">
+    <button onclick="addTask()">Add</button>
+    <div class="notification" id="notification"></div>
+    <ul id="tasks">
+    </ul>
+</div>
+
+<script>
+    function addTask() {
+        const taskValue = document.getElementById('newTask').value;
+        
+        // Display notification if the task is empty
+        if (taskValue.trim() === '') {
+            displayNotification('Task cannot be empty!');
+            return;
+        }
+
+        const li = document.createElement('li');
+
+        const taskText = document.createElement('span');
+        taskText.textContent = taskValue;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.classList.add('deleteBtn');
+        deleteBtn.addEventListener('click', function() {
+            li.remove();
+        });
+
+        li.appendChild(taskText);
+        li.appendChild(deleteBtn);
+        
+        li.addEventListener('click', function(event) {
+            if (event.target !== deleteBtn) {
+                taskText.classList.toggle('completed');
+            }
+        });
+
+        document.getElementById('tasks').appendChild(li);
+        document.getElementById('newTask').value = '';  // Clear the input
+    }
+
+    function displayNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        
+        setTimeout(() => {
+            notification.textContent = '';
+        }, 3000);
+    }
+</script>
